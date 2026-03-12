@@ -1,95 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Clips</title>
+<meta charset="UTF-8">
+<title>Twitch Clips Player</title>
 <style>
-  html, body {
-    margin: 0;
-    background: black;
-    height: 100%;
-    overflow: hidden;
-  }
-  #player {
-    width: 100%;
-    height: 100%;
-  }
+html, body {
+  margin: 0;
+  background: black;
+  height: 100%;
+  overflow: hidden;
+}
+#player {
+  width: 100vw;
+  height: 100vh;
+}
 </style>
 </head>
-<body>
 
+<body>
 <div id="player"></div>
 
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 <script>
 const clips = [
-"DirtyObliviousDuckBCWarrior-KWXj1eno45HmOoIA",
-"SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb",
-"DirtyPoisedLadiesPanicVis-RQwNT5FousEV0q-9",
-"SpikyResoluteSheepKappaPride-TxxIQfLCLdi8Fbyn",
-"WonderfulSmallAirGuitarSwiftRage-pBcQXSMvnHkPOKto",
-"AstuteSpicyLaptopDancingBanana-eGdLZEhbwSKbwVOc",
-"IgnorantLovelyStingrayBrokeBack-e4r7dkpJAJhA-7Xw",
-"EasyNiceTurnipCoolStoryBob-AtMAiwNZr4syxdiJ",
-"HonorableRepleteTaroJonCarnage-sogFPgZ7hyGLQAVy",
-"HonorableOnerousAlligatorAMPTropPunch-A2mQz6pJG-9twKrt",
-"ApatheticPowerfulNarwhalArsonNoSexy-KzYbM-DXVgHRzoKb",
-"RockyCleverCookieResidentSleeper-qaNmQRfrih7OLWqH",
-"AnimatedAnimatedRingBibleThump-PQfdP3M8-1wMExza",
-"PreciousHandsomeSoybeanWholeWheat-8TmEQzZYJwt605s_",
-"SuperAcceptableDoveSMOrc-UDTnsZiBNyvorLhl",
-"KathishDependableLaptopBudStar-ePE6Pzzl8bVrri5x",
-"EsteemedLivelyOstrichTheTarFu-jfF18krpGt9fz9-x",
-"CooperativeHelplessBisonSwiftRage-Rdoont4uqueD9_kM",
-"KathishBoldJalapenoBIRB-CxoIiSNZ4OI8mwxO",
-"FurryPeppyArmadilloPJSalt-R-A6-S3FM2W8QuKh",
-"KawaiiRamshackleLemurMau5-sx1lP51U8s2dlOfS",
-"CrypticScaryNuggetsPeteZaroll-1kbQdLy3_B5Woizw",
-"HappyObservantSmoothieOSkomodo-2JAEZgyKLqC76yP6",
-"CrowdedGiantVampireKappaRoss-JilRRZ7E1OhWlpKr",
-"RespectfulAttractiveStarDAESuppy-XgjR7yOsel2KCg9Q",
-"AnnoyingRichLocustUWot-0TEZvX9Pa_ZqNBBZ",
-"AggressivePlayfulNikudonHumbleLife-sP0SMfBZGi1bprr7",
-"ResilientPerfectPicklesTriHard-JBZjA6egMvieH4rr",
-"TrustworthyLachrymoseMilkHassanChop-sRHV2O88JjqYvWHj",
-"AffluentFrozenFlyTriHard-jJT6e2DAIC3qGKQE",
-"AuspiciousBenevolentBunnyHumbleLife--64EBkW-emLgw7AZ",
-"ImpartialKnottyHamFailFish-VnPXS-cSiU0XoL5p",
-"HappyAbstemiousSoybeanHeyGirl-ls90WzLQ_uEUkejl",
-"StrongEnergeticHumanPartyTime-9BFMJdetAoablNAI",
-"ModernBoxyMushroomStoneLightning-EevW5rNb4F_ICBx_",
-"DepressedJollyCarabeefDatSheffy-EaSIueXfOmjvkIne",
-"VenomousHomelyCheeseRaccAttack-KFgaGD167JvHIn92",
-"MagnificentAttractiveNarwhalWoofer-Td0hh26OIBTeUMHR",
-"OpenCuriousCroissantTwitchRaid-aJqmB8x9QmwmUZxm",
-"AmericanAntsyBarracudaCmonBruh-3Ye2hnCkHwzcW4Cg",
-"CloudyPlacidCocoaBlargNaut-Y9eG4rVDYK4eCjZ_",
-"DeliciousDirtyIcecreamNerfRedBlaster-pGFvhuOKVjHYWESa",
-"NeighborlyFamousShieldFeelsBadMan-ksei_e3z4urdM112",
-"RepleteHorribleStingrayPanicBasket-LiGUZ-QuFeIslLGy",
-"LachrymoseAmazonianNigiriItsBoshyTime-HNhM7MzplCYzLgz5",
-"SmoothPatientGerbilNomNom-3QbFt_4Rd5zljoVT",
-"AttractiveCrackyCheddarItsBoshyTime-ORbuP7t1qdhP_6Zd",
-"ProductiveFragileChowderPanicVis-zujbHaLQz8dMmwVh",
-"StrangeDistinctOcelotAliens-Ln90oHBshdaZmPhT",
-"GeniusThirstyOctopusHassaanChop-Vgk5S8OsL_mt7jrC",
-"ImpossibleBrainyFennelEagleEye-s0VakgLx6zLOE8he",
-"FunFantasticGaurPJSugar-lkO3KZoYvQUwrAPX",
-"OilyBrightSangPicoMause-Qbj9m256Smsk-Vrs",
-"VictoriousSarcasticMarjoramAliens-aARWSmybd_4fwECQ",
-"ConfidentSmallMagpieTwitchRPG-1cwZB89tZLeRXalL",
-"DistinctBlazingCougarShadyLulu-1r-KF4l7R_-egQuS",
-"IntelligentFrigidPonyTF2John-GJLH5QZCnYEJhbHW",
-"ObedientEphemeralRadishRiPepperonis-pq8x10JEMYeQMR8U",
-"ScrumptiousAcceptableChamoisDogFace-f9jaf2j7_cnIQ1Ep",
-"CrowdedTolerantRedpandaRalpherZ-Hp-QtA2YrHBMzB74",
-"FastSpicyArmadilloTwitchRaid-TmaA1xKEYeY_sUJk",
-"HardAbstemiousAppleCmonBruh-0qeEpmtqEEDAwaTx",
-"HonestSuperDumplingsHotPokket-cQV32mViRkCZS1Kb",
-"SweetObeseEndiveFloof-CFv2EMerR_w-GlFy",
-"GrotesqueCharmingPonyPrimeMe-XGDrqq1SzI1MgBCR",
-"CrypticBashfulClintFrankerZ-V7FtYhpNkD-elROQ",
-"MistySecretivePrariedogChefFrank-qG2_AW87T9_GujsD"
+"DirtyObliviousDuckBCWarrior-KWXj1eno45HmOoIA"
 ];
 
 function randomClip() {
@@ -97,18 +31,16 @@ function randomClip() {
 }
 
 const player = new Twitch.Player("player", {
-  parent: ["overcloudz.github.io"],
   width: "100%",
   height: "100%",
   clip: randomClip(),
-  autoplay: true
-});
-
-player.addEventListener(Twitch.Player.ENDED, () => {
-  player.setClip(randomClip());
-  player.play();
+  autoplay: true,
+  muted: true,
+  parent: [
+    "overcloudz.github.io",
+    "overcloudz.github.io/"
+  ]
 });
 </script>
-
 </body>
 </html>
