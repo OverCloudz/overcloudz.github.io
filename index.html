@@ -234,7 +234,7 @@ var clips = [
 ];
 
 var i = Math.floor(Math.random() * clips.length);
-var player = document.getElementById("player");
+var playerDiv = document.getElementById("player");
 
 function nextRandomIndex(current, length){
   if (length <= 1) return 0;
@@ -245,27 +245,33 @@ function nextRandomIndex(current, length){
   return r;
 }
 
+var embed;
+
 function loadClip(index){
-  player.src =
-  "https://clips.twitch.tv/embed?clip=" + clips[index] +
-  "&parent=overcloudz.github.io&autoplay=true&muted=false";
-}
+  if (embed) embed.destroy();
 
-player.addEventListener("load", function () {
-  // wait for clip to finish by listening to postMessage from Twitch
-  window.addEventListener("message", function(event) {
-    if (!event.data) return;
-
-    // Twitch sends a message when playback ends
-    if (typeof event.data === "string" && event.data.includes('"event":"ended"')) {
-      i = nextRandomIndex(i, clips.length);
-      loadClip(i);
-    }
+  embed = new Twitch.Embed("player", {
+    width: "100%",
+    height: "100%",
+    autoplay: true,
+    muted: false,
+    parent: ["overcloudz.github.io"],
+    layout: "video",
+    video: "",
+    collection: "",
+    clip: clips[index]
   });
-});
+
+  embed.addEventListener(Twitch.Embed.VIDEO_ENDED, function() {
+    i = nextRandomIndex(i, clips.length);
+    loadClip(i);
+  });
+}
 
 loadClip(i);
 </script>
+
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
 
 </body>
 </html>
