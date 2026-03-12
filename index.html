@@ -4,16 +4,14 @@
 <meta charset="utf-8">
 <style>
 html, body { margin:0; background:black; height:100%; }
-#player { width:100vw; height:100vh; border:0; }
+#player { width:100vw; height:100vh; }
 </style>
 </head>
 <body>
 
-<iframe id="player"
-allow="autoplay; fullscreen"
-allowfullscreen>
-</iframe>
+<div id="player"></div>
 
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
 <script>
 var clips = [
 "DirtyObliviousDuckBCWarrior-KWXj1eno45HmOoIA",
@@ -233,30 +231,29 @@ var clips = [
 "UgliestImportantWalletPhilosoraptor-pnlpy_zqF6QmVgMo"
 ];
 
-var i = Math.floor(Math.random() * clips.length);
-var player = document.getElementById("player");
-
 function nextRandomIndex(current, length){
   if (length <= 1) return 0;
   let r;
-  do {
-    r = Math.floor(Math.random() * length);
-  } while (r === current);
+  do { r = Math.floor(Math.random() * length); }
+  while (r === current);
   return r;
 }
 
-function loadClip(index){
-  player.src =
-  "https://clips.twitch.tv/embed?clip=" + clips[index] +
-  "&parent=overcloudz.github.io&autoplay=true&muted=false";
+var i = Math.floor(Math.random() * clips.length);
 
-  setTimeout(function(){
-    i = nextRandomIndex(i, clips.length);
-    loadClip(i);
-  }, 20000); // change this number if you want longer/shorter
-}
+var player = new Twitch.Player("player", {
+  width: "100%",
+  height: "100%",
+  clip: clips[i],
+  autoplay: true,
+  muted: false,
+  parent: ["overcloudz.github.io"]
+});
 
-loadClip(i);
+player.addEventListener(Twitch.Player.ENDED, function(){
+  i = nextRandomIndex(i, clips.length);
+  player.setClip(clips[i]);
+});
 </script>
 
 </body>
