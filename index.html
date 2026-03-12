@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html>
-<body style="margin:0;background:black;overflow:hidden;">
-
-<div id="player"></div>
-
-<script src="https://player.twitch.tv/js/embed/v1.js"></script>
-<script>
-const clips = [
-  "CLIP_ID_1",
-  "CLIP_ID_2",
-  "CLIP_ID_3"
-];
-
-function randomClip() {
-  return clips[Math.floor(Math.random() * clips.length)];
-}
-
-let player = new Twitch.Player("player", {
-  width: "1920",
-  height: "1080",
-  clip: randomClip(),
-  parent: ["overcloudz.github.io"],
-  autoplay: true
-});
-
-player.addEventListener(Twitch.Player.ENDED, () => {
-  player.setClip(randomClip());
-  player.play();
-});
-</script>
-
+<head>
+<meta charset="utf-8">
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: black;
+  }
+  .wrap {
+    position: fixed;
+    inset: 0;
+  }
+  .wrap iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <iframe
+      src="https://clips.twitch.tv/embed?clip=SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb&parent=overcloudz.github.io&autoplay=true&muted=false"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
 </body>
 </html>
