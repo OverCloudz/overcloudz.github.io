@@ -16,8 +16,8 @@ allowfullscreen>
 
 <script>
 var clips = [
-"SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb",
-"DirtyObliviousDuckBCWarrior-KWxj1eno45HmOoIA"
+  { id:"SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb", dur: 18 },
+  { id:"DirtyObliviousDuckBCWarrior-KWxj1eno45HmOoIA", dur: 22 }
 ];
 
 var i = 0;
@@ -25,28 +25,16 @@ var player = document.getElementById("player");
 
 function loadClip(index){
   player.src =
-    "https://clips.twitch.tv/embed?clip=" + clips[index] +
+    "https://clips.twitch.tv/embed?clip=" + clips[index].id +
     "&parent=overcloudz.github.io&autoplay=true&muted=true";
+
+  setTimeout(function(){
+    i = (i + 1) % clips.length;
+    loadClip(i);
+  }, clips[index].dur * 1000);
 }
 
 loadClip(i);
-
-// Detect when iframe finishes by time fallback
-var CHECK_INTERVAL = 1000;
-var lastTime = 0;
-
-setInterval(function(){
-  try {
-    var t = player.contentWindow.document.querySelector("video");
-    if (!t) return;
-
-    if (t.currentTime < lastTime) {
-      i = (i + 1) % clips.length;
-      loadClip(i);
-    }
-    lastTime = t.currentTime;
-  } catch(e){}
-}, CHECK_INTERVAL);
 </script>
 
 </body>
