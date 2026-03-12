@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html>
-<body style="margin:0;background:black;">
-  <div id="player"></div>
+<body style="margin:0;background:black;overflow:hidden;">
 
-  <script src="https://player.twitch.tv/js/embed/v1.js"></script>
-  <script>
-    new Twitch.Player("player", {
-      parent: ["overcloudz.github.io"],
-      width: "100%",
-      height: "100%",
-      clip: "DirtyObliviousDuckBCWarrior-KWXj1eno45HmOoIA",
-      autoplay: true
-    });
-  </script>
+<div id="player"></div>
+
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
+<script>
+const clips = [
+  "CLIP_ID_1",
+  "CLIP_ID_2",
+  "CLIP_ID_3"
+];
+
+function randomClip() {
+  return clips[Math.floor(Math.random() * clips.length)];
+}
+
+let player = new Twitch.Player("player", {
+  width: "1920",
+  height: "1080",
+  clip: randomClip(),
+  parent: ["overcloudz.github.io"],
+  autoplay: true
+});
+
+player.addEventListener(Twitch.Player.ENDED, () => {
+  player.setClip(randomClip());
+  player.play();
+});
+</script>
+
 </body>
 </html>
