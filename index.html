@@ -7,35 +7,38 @@ html, body {
   margin: 0;
   background: black;
 }
-.player {
+#player {
   width: 100vw;
   height: 100vh;
-  border: 0;
 }
 </style>
 </head>
 <body>
 
-<iframe
-  class="player"
-  src="https://clips.twitch.tv/embed?clip=SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb&parent=overcloudz.github.io&autoplay=true&muted=true"
-  allow="autoplay; fullscreen"
-  allowfullscreen>
-</iframe>
+<div id="player"></div>
 
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
 <script>
 const clips = [
-  "https://clips.twitch.tv/embed?clip=SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb&parent=overcloudz.github.io&autoplay=true&muted=true",
-  "https://clips.twitch.tv/embed?clip=DirtyObliviousDuckBCWarrior-KWxj1eno45HmOoIA&parent=overcloudz.github.io&autoplay=true&muted=true"
+  "SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb",
+  "DirtyObliviousDuckBCWarrior-KWxj1eno45HmOoIA"
 ];
 
-let i = 0;
-const player = document.querySelector(".player");
+let index = 0;
 
-setInterval(() => {
-  i = (i + 1) % clips.length;
-  player.src = clips[i];
-}, 30000); // change clip every 30s
+const player = new Twitch.Player("player", {
+  width: "100%",
+  height: "100%",
+  clip: clips[index],
+  parent: ["overcloudz.github.io"],
+  autoplay: true,
+  muted: false
+});
+
+player.addEventListener(Twitch.Player.ENDED, () => {
+  index = (index + 1) % clips.length;
+  player.setClip(clips[index]);
+});
 </script>
 
 </body>
