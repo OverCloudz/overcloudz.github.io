@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <style>
-html, body { margin:0; background:black; }
-#player { width:100vw; height:100vh; }
+html, body { margin:0; background:black; height:100%; }
+#player { width:100vw; height:100vh; border:0; }
 </style>
 </head>
 <body>
 
-<div id="player"></div>
+<iframe id="player"
+allow="autoplay; fullscreen"
+allowfullscreen>
+</iframe>
 
-<script src="https://player.twitch.tv/js/embed/v1.js"></script>
 <script>
 var clips = [
 "SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb",
@@ -19,22 +21,32 @@ var clips = [
 ];
 
 var i = 0;
+var player = document.getElementById("player");
 
-var player = new Twitch.Player("player", {
-  width: "100%",
-  height: "100%",
-  clip: clips[i],
-  parent: ["overcloudz.github.io"],
-  autoplay: true,
-  muted: true
-});
+function loadClip(index){
+  player.src =
+    "https://clips.twitch.tv/embed?clip=" + clips[index] +
+    "&parent=overcloudz.github.io&autoplay=true&muted=true";
+}
 
-player.addEventListener(Twitch.Player.READY, function() {
-  player.addEventListener("ended", function () {
-    i = (i + 1) % clips.length;
-    player.setClip(clips[i]);
-  });
-});
+loadClip(i);
+
+// Detect when iframe finishes by time fallback
+var CHECK_INTERVAL = 1000;
+var lastTime = 0;
+
+setInterval(function(){
+  try {
+    var t = player.contentWindow.document.querySelector("video");
+    if (!t) return;
+
+    if (t.currentTime < lastTime) {
+      i = (i + 1) % clips.length;
+      loadClip(i);
+    }
+    lastTime = t.currentTime;
+  } catch(e){}
+}, CHECK_INTERVAL);
 </script>
 
 </body>
