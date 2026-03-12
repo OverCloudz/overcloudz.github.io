@@ -249,12 +249,20 @@ function loadClip(index){
   player.src =
   "https://clips.twitch.tv/embed?clip=" + clips[index] +
   "&parent=overcloudz.github.io&autoplay=true&muted=false";
-
-  setTimeout(function(){
-    i = nextRandomIndex(i, clips.length);
-    loadClip(i);
-  }, 20000);
 }
+
+player.addEventListener("load", function () {
+  // wait for clip to finish by listening to postMessage from Twitch
+  window.addEventListener("message", function(event) {
+    if (!event.data) return;
+
+    // Twitch sends a message when playback ends
+    if (typeof event.data === "string" && event.data.includes('"event":"ended"')) {
+      i = nextRandomIndex(i, clips.length);
+      loadClip(i);
+    }
+  });
+});
 
 loadClip(i);
 </script>
