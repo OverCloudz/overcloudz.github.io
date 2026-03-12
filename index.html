@@ -3,38 +3,36 @@
 <head>
 <meta charset="utf-8">
 <style>
-html, body { margin:0; background:black; height:100%; }
-#player { width:100vw; height:100vh; border:0; }
+html, body { margin:0; background:black; }
+#player { width:100vw; height:100vh; }
 </style>
 </head>
 <body>
 
-<iframe id="player"
-allow="autoplay; fullscreen"
-allowfullscreen>
-</iframe>
+<div id="player"></div>
 
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
 <script>
 var clips = [
-  { id:"SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb", dur: 18 },
-  { id:"DirtyObliviousDuckBCWarrior-KWxj1eno45HmOoIA", dur: 22 }
+  "SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb",
+  "GlamorousSmellyWrenNerfRedBlaster-yMrLJzOyEKJHDFG5"
 ];
 
 var i = 0;
-var player = document.getElementById("player");
 
-function loadClip(index){
-  player.src =
-    "https://clips.twitch.tv/embed?clip=" + clips[index].id +
-    "&parent=overcloudz.github.io&autoplay=true&muted=true";
+var player = new Twitch.Player("player", {
+  width: "100%",
+  height: "100%",
+  clip: clips[i],
+  parent: ["overcloudz.github.io"],
+  autoplay: true,
+  muted: true
+});
 
-  setTimeout(function(){
-    i = (i + 1) % clips.length;
-    loadClip(i);
-  }, clips[index].dur * 1000);
-}
-
-loadClip(i);
+player.addEventListener(Twitch.Player.ENDED, function () {
+  i = (i + 1) % clips.length;
+  player.setClip(clips[i]);
+});
 </script>
 
 </body>
