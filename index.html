@@ -3,14 +3,8 @@
 <head>
 <meta charset="utf-8">
 <style>
-html, body {
-  margin: 0;
-  background: black;
-}
-#player {
-  width: 100vw;
-  height: 100vh;
-}
+html, body { margin:0; background:black; }
+#player { width:100vw; height:100vh; }
 </style>
 </head>
 <body>
@@ -19,25 +13,25 @@ html, body {
 
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 <script>
-const clips = [
-  "SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb",
-  "DirtyObliviousDuckBCWarrior-KWxj1eno45HmOoIA"
+var clips = [
+"SpicyNiceCaribouCoolStoryBro-HBc3up7J6LHWkxwb",
+"DirtyObliviousDuckBCWarrior-KWxj1eno45HmOoIA"
 ];
 
-let index = 0;
+var i = 0;
 
-const player = new Twitch.Player("player", {
+var player = new Twitch.Player("player", {
   width: "100%",
   height: "100%",
-  clip: clips[index],
+  clip: clips[i],
   parent: ["overcloudz.github.io"],
   autoplay: true,
-  muted: false
+  muted: true
 });
 
-player.addEventListener(Twitch.Player.ENDED, () => {
-  index = (index + 1) % clips.length;
-  player.setClip(clips[index]);
+player.addEventListener(Twitch.Player.ENDED, function() {
+  i = (i + 1) % clips.length;
+  player.setClip(clips[i]);
 });
 </script>
 
