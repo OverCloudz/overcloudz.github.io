@@ -29,9 +29,11 @@ var player = new Twitch.Player("player", {
   muted: true
 });
 
-player.addEventListener(Twitch.Player.ENDED, function() {
-  i = (i + 1) % clips.length;
-  player.setClip(clips[i]);
+player.addEventListener(Twitch.Player.READY, function() {
+  player.addEventListener("ended", function () {
+    i = (i + 1) % clips.length;
+    player.setClip(clips[i]);
+  });
 });
 </script>
 
